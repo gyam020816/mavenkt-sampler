@@ -13,8 +13,6 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
  * @author gyam
  */
 object KObjectMapper {
-    private val SHARED = newInstance()
-
     fun newInstance() = ObjectMapper().run {
         registerKotlinModule()
         registerModule(JavaTimeModule())
