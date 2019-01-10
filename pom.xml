@@ -78,6 +78,9 @@
                                 <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
                                 <sourceDir>${project.basedir}/src/main/java</sourceDir>
                             </sourceDirs>
+                            <args>
+                                <arg>-XXLanguage:+InlineClasses</arg>
+                            </args>
                         </configuration>
                     </execution>
                     <execution>
