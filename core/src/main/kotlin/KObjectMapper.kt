@@ -13,7 +13,7 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
  * @author gyam
  */
 object KObjectMapper {
-    fun newInstance() = ObjectMapper().run {
+    fun newInstance() = ObjectMapper().apply {
         registerKotlinModule()
         registerModule(JavaTimeModule())
         configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
