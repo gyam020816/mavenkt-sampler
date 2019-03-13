@@ -28,4 +28,23 @@ internal class GildedRoseTest {
                 Item(name = "Conjured Mana Cake", sellIn = 2, quality = 5)
         ))
     }
+
+    @Test
+    internal fun `it should degrade twice as fast when sell date has passed`() {
+        val item = Item(
+                name = "something",
+                sellIn = 0,
+                quality = 50
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+                name = "something",
+                sellIn = -1,
+                quality = 48
+        ))
+    }
 }
