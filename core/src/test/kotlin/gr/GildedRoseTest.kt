@@ -161,4 +161,80 @@ internal class GildedRoseTest {
                 quality = 80
         ))
     }
+
+    @Test
+    internal fun `it should increase the quality of Backstage passes by 1 when there are equal or more than 11 days`() {
+        val item = Item(
+                name = "Backstage passes to a TAFKAL80ETC concert",
+                sellIn = 11,
+                quality = 30
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+                name = "Backstage passes to a TAFKAL80ETC concert",
+                sellIn = 10,
+                quality = 31
+        ))
+    }
+
+    @Test
+    internal fun `it should increase the quality of Backstage passes by 2 when there are equal or less than 10 days`() {
+        val item = Item(
+                name = "Backstage passes to a TAFKAL80ETC concert",
+                sellIn = 10,
+                quality = 30
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+                name = "Backstage passes to a TAFKAL80ETC concert",
+                sellIn = 9,
+                quality = 32
+        ))
+    }
+
+    @Test
+    internal fun `it should increase the quality of Backstage passes by 3 when there are equal or less than 5 days`() {
+        val item = Item(
+                name = "Backstage passes to a TAFKAL80ETC concert",
+                sellIn = 5,
+                quality = 30
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+                name = "Backstage passes to a TAFKAL80ETC concert",
+                sellIn = 4,
+                quality = 33
+        ))
+    }
+
+    @Test
+    internal fun `it should set the quality of Backstage passes to 0 when there are equal or less than 0 days`() {
+        val item = Item(
+                name = "Backstage passes to a TAFKAL80ETC concert",
+                sellIn = 0,
+                quality = 30
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+                name = "Backstage passes to a TAFKAL80ETC concert",
+                sellIn = -1,
+                quality = 0
+        ))
+    }
 }
