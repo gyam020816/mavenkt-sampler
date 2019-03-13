@@ -47,4 +47,118 @@ internal class GildedRoseTest {
                 quality = 48
         ))
     }
+
+    @Test
+    internal fun `it should not degrade quality below zero`() {
+        val item = Item(
+                name = "something",
+                sellIn = 10,
+                quality = 0
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+                name = "something",
+                sellIn = 9,
+                quality = 0
+        ))
+    }
+
+    @Test
+    internal fun `it should increase the quality of aged brie`() {
+        val item = Item(
+                name = "Aged Brie",
+                sellIn = 10,
+                quality = 30
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+                name = "Aged Brie",
+                sellIn = 9,
+                quality = 31
+        ))
+    }
+
+    @Test
+    internal fun `it should not increase the quality of aged brie above 50`() {
+        val item = Item(
+                name = "Aged Brie",
+                sellIn = 10,
+                quality = 50
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+                name = "Aged Brie",
+                sellIn = 9,
+                quality = 50
+        ))
+    }
+
+    @Test
+    internal fun `when the quality is above 50, the quality decreases (?!)`() {
+        val item = Item(
+                name = "something",
+                sellIn = 10,
+                quality = 9999
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+                name = "something",
+                sellIn = 9,
+                quality = 9998
+        ))
+    }
+
+    @Test
+    internal fun `when the quality is above 50, the quality remains the same for Aged Brie (?!)`() {
+        val item = Item(
+                name = "Aged Brie",
+                sellIn = 10,
+                quality = 9999
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+                name = "Aged Brie",
+                sellIn = 9,
+                quality = 9999
+        ))
+    }
+
+    @Test
+    internal fun `it should not change Sulfuras`() {
+        val item = Item(
+                name = "Sulfuras, Hand of Ragnaros",
+                sellIn = 0,
+                quality = 80
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+                name = "Sulfuras, Hand of Ragnaros",
+                sellIn = 0,
+                quality = 80
+        ))
+    }
 }
