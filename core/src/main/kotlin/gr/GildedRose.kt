@@ -24,11 +24,11 @@ object GildedRose {
    fun updateQuality(items: List<Item>)
    {
       for (item in items) {
-         if ((!"Aged Brie".equals(item.name)) && !"Backstage passes to a TAFKAL80ETC concert".equals(item.name))
+         if (("Aged Brie" != item.name) && "Backstage passes to a TAFKAL80ETC concert" != item.name)
          {
             if (item.quality > 0)
             {
-               if (!"Sulfuras, Hand of Ragnaros".equals(item.name))
+               if ("Sulfuras, Hand of Ragnaros" != item.name)
                {
                   item.quality = item.quality - 1
                }
@@ -40,7 +40,7 @@ object GildedRose {
             {
                item.quality = item.quality + 1
 
-               if ("Backstage passes to a TAFKAL80ETC concert".equals(item.name))
+               if ("Backstage passes to a TAFKAL80ETC concert" == item.name)
                {
                   if (item.sellIn < 11)
                   {
@@ -61,20 +61,20 @@ object GildedRose {
             }
          }
 
-         if (!"Sulfuras, Hand of Ragnaros".equals(item.name))
+         if ("Sulfuras, Hand of Ragnaros" != item.name)
          {
             item.sellIn = item.sellIn - 1
          }
 
          if (item.sellIn < 0)
          {
-            if (!"Aged Brie".equals(item.name))
+            if ("Aged Brie" != item.name)
             {
-               if (!"Backstage passes to a TAFKAL80ETC concert".equals(item.name))
+               if ("Backstage passes to a TAFKAL80ETC concert" != item.name)
                {
                   if (item.quality > 0)
                   {
-                     if (!"Sulfuras, Hand of Ragnaros".equals(item.name))
+                     if ("Sulfuras, Hand of Ragnaros" != item.name)
                      {
                         item.quality = item.quality - 1
                      }
