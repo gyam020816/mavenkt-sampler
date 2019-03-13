@@ -2,6 +2,10 @@ package gr
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
+
+
 
 internal class GildedRoseTest {
     @Test
@@ -236,5 +240,18 @@ internal class GildedRoseTest {
                 sellIn = -1,
                 quality = 0
         ))
+    }
+
+    companion object {
+        @JvmStatic
+        fun fds() = listOf(
+                1 to 2
+        )
+    }
+
+    @ParameterizedTest
+    @MethodSource("fds")
+    fun isOdd_ShouldReturnTrueForOddNumbers(number: Pair<Int, Int>) {
+        assertThat(number).isEqualTo(-10000)
     }
 }
