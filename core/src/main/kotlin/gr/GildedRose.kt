@@ -36,51 +36,55 @@ object GildedRose {
    internal fun updateQuality(item: Item) {
       when (item.name) {
          GildedRose.SpecialItem.AGED_BRIE.itemName -> {
-            if (item.quality < 50) {
-               item.quality = item.quality + 1
-            }
-            item.sellIn = item.sellIn - 1
+            increaseQuality(item)
+            decreaseSellIn(item)
             if (item.sellIn < 0) {
-               if (item.quality < 50) {
-                  item.quality = item.quality + 1
-               }
+               increaseQuality(item)
             }
          }
          GildedRose.SpecialItem.BACKSTAGE.itemName -> {
-            if (item.quality < 50) {
-               item.quality = item.quality + 1
+            increaseQuality(item)
 
-               if (item.sellIn < 11) {
-                  if (item.quality < 50) {
-                     item.quality = item.quality + 1
-                  }
-               }
-
-               if (item.sellIn < 6) {
-                  if (item.quality < 50) {
-                     item.quality = item.quality + 1
-                  }
-               }
+            if (item.sellIn < 11) {
+               increaseQuality(item)
             }
-            item.sellIn = item.sellIn - 1
+
+            if (item.sellIn < 6) {
+               increaseQuality(item)
+            }
+
+            decreaseSellIn(item)
+
             if (item.sellIn < 0) {
-               item.quality = item.quality - item.quality
+               item.quality = 0
             }
          }
          GildedRose.SpecialItem.SULFURAS.itemName -> {}
          else -> {
-            if (item.quality > 0) {
-               item.quality = item.quality - 1
-            }
+            decreaseQuality(item)
 
-            item.sellIn = item.sellIn - 1
+            decreaseSellIn(item)
 
             if (item.sellIn < 0) {
-               if (item.quality > 0) {
-                  item.quality = item.quality - 1
-               }
+               decreaseQuality(item)
             }
          }
+      }
+   }
+
+   private fun decreaseSellIn(item: Item) {
+      item.sellIn = item.sellIn - 1
+   }
+
+   private fun increaseQuality(item: Item) {
+      if (item.quality < 50) {
+         item.quality = item.quality + 1
+      }
+   }
+
+   private fun decreaseQuality(item: Item) {
+      if (item.quality > 0) {
+         item.quality = item.quality - 1
       }
    }
 }
