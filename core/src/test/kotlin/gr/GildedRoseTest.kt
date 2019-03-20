@@ -239,6 +239,85 @@ internal class GildedRoseTest {
                 quality = 0
         ))
     }
+    
+    @Test
+    internal fun `it should degrade the quality of Conjured items twice as fast as normal items`() {
+        val item = Item(
+                name = "Conjured",
+                sellIn = 10,
+                quality = 30
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+              name = "Conjured",
+              sellIn = 9,
+              quality = 28
+        ))
+    }
+
+    @Test
+    internal fun `it should degrade the quality of Conjured items twice as fast as normal items when sellin is below zero`() {
+        val item = Item(
+              name = "Conjured",
+              sellIn = 0,
+              quality = 30
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+              name = "Conjured",
+              sellIn = -1,
+              quality = 26
+        ))
+    }
+
+    @Test
+    internal fun `quality should never be below zero`() {
+        val item = Item(
+              name = "Item",
+              sellIn = 0,
+              quality = 0
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+              name = "Item",
+              sellIn = -1,
+              quality = 0
+        ))
+    }
+
+
+    @Test
+    internal fun `quality should never be below zero for conjured`() {
+        val item = Item(
+              name = "Conjured",
+              sellIn = 0,
+              quality = 3
+        )
+
+        // Exercise
+        GildedRose.updateQuality(item)
+
+        // Verify
+        assertThat(item).isEqualTo(Item(
+              name = "Conjured",
+              sellIn = -1,
+              quality = 0
+        ))
+    }
+
+
 
 //    companion object {
 //        @JvmStatic

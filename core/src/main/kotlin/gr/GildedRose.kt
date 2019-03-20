@@ -30,7 +30,8 @@ object GildedRose {
    enum class SpecialItem(val itemName: String) {
       AGED_BRIE("Aged Brie"),
       BACKSTAGE("Backstage passes to a TAFKAL80ETC concert"),
-      SULFURAS("Sulfuras, Hand of Ragnaros")
+      SULFURAS("Sulfuras, Hand of Ragnaros"),
+      CONJURED("Conjured")
    }
 
    internal fun updateQuality(item: Item) {
@@ -60,6 +61,13 @@ object GildedRose {
                item.quality = 0
             }
          }
+         GildedRose.SpecialItem.CONJURED.itemName -> {
+            decreaseSellIn(item)
+            decreaseQuality(item, 2)
+            if (item.sellIn < 0) {
+               decreaseQuality(item, 2)
+            }
+         }
          GildedRose.SpecialItem.SULFURAS.itemName -> {
          }
          else -> {
@@ -84,9 +92,8 @@ object GildedRose {
       }
    }
 
-   private fun decreaseQuality(item: Item) {
-      if (item.quality > 0) {
-         item.quality = item.quality - 1
-      }
+   private fun decreaseQuality(item: Item, quality: Int = 1) {
+      val result = item.quality - quality
+      item.quality = (if (result >= 0) result else 0)
    }
 }
