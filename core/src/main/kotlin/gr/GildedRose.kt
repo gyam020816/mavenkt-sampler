@@ -36,34 +36,36 @@ object GildedRose {
    internal fun updateQuality(item: Item) {
       when (item.name) {
          GildedRose.SpecialItem.AGED_BRIE.itemName -> {
-            increaseQuality(item)
             decreaseSellIn(item)
+
+            increaseQuality(item)
             if (item.sellIn < 0) {
                increaseQuality(item)
             }
          }
          GildedRose.SpecialItem.BACKSTAGE.itemName -> {
+            decreaseSellIn(item)
+
             increaseQuality(item)
 
-            if (item.sellIn < 11) {
+            if (item.sellIn < 10) {
                increaseQuality(item)
             }
 
-            if (item.sellIn < 6) {
+            if (item.sellIn < 5) {
                increaseQuality(item)
             }
-
-            decreaseSellIn(item)
 
             if (item.sellIn < 0) {
                item.quality = 0
             }
          }
-         GildedRose.SpecialItem.SULFURAS.itemName -> {}
+         GildedRose.SpecialItem.SULFURAS.itemName -> {
+         }
          else -> {
-            decreaseQuality(item)
-
             decreaseSellIn(item)
+
+            decreaseQuality(item)
 
             if (item.sellIn < 0) {
                decreaseQuality(item)
