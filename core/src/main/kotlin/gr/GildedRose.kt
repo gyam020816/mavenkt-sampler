@@ -27,18 +27,29 @@ object GildedRose {
       }
    }
 
+   enum class SpecialItem(val itemName: String) {
+      AGED_BRIE("Aged Brie"),
+      BACKSTAGE("Backstage passes to a TAFKAL80ETC concert"),
+      SULFURAS("Sulfuras, Hand of Ragnaros")
+   }
+
    internal fun updateQuality(item: Item) {
-      if (("Aged Brie" != item.name) && "Backstage passes to a TAFKAL80ETC concert" != item.name) {
-         if (item.quality > 0) {
-            if ("Sulfuras, Hand of Ragnaros" != item.name) {
-               item.quality = item.quality - 1
+      when (item.name) {
+         GildedRose.SpecialItem.AGED_BRIE.itemName -> {
+            if (item.quality < 50) {
+               item.quality = item.quality + 1
+            }
+            item.sellIn = item.sellIn - 1
+            if (item.sellIn < 0) {
+               if (item.quality < 50) {
+                  item.quality = item.quality + 1
+               }
             }
          }
-      } else {
-         if (item.quality < 50) {
-            item.quality = item.quality + 1
+         GildedRose.SpecialItem.BACKSTAGE.itemName -> {
+            if (item.quality < 50) {
+               item.quality = item.quality + 1
 
-            if ("Backstage passes to a TAFKAL80ETC concert" == item.name) {
                if (item.sellIn < 11) {
                   if (item.quality < 50) {
                      item.quality = item.quality + 1
@@ -51,30 +62,25 @@ object GildedRose {
                   }
                }
             }
-         }
-      }
-
-      if ("Sulfuras, Hand of Ragnaros" != item.name) {
-         item.sellIn = item.sellIn - 1
-      }
-
-      if (item.sellIn < 0) {
-         if ("Aged Brie" != item.name) {
-            if ("Backstage passes to a TAFKAL80ETC concert" != item.name) {
-               if (item.quality > 0) {
-                  if ("Sulfuras, Hand of Ragnaros" != item.name) {
-                     item.quality = item.quality - 1
-                  }
-               }
-            } else {
+            item.sellIn = item.sellIn - 1
+            if (item.sellIn < 0) {
                item.quality = item.quality - item.quality
             }
-         } else {
-            if (item.quality < 50) {
-               item.quality = item.quality + 1
+         }
+         GildedRose.SpecialItem.SULFURAS.itemName -> {}
+         else -> {
+            if (item.quality > 0) {
+               item.quality = item.quality - 1
+            }
+
+            item.sellIn = item.sellIn - 1
+
+            if (item.sellIn < 0) {
+               if (item.quality > 0) {
+                  item.quality = item.quality - 1
+               }
             }
          }
       }
    }
-
 }
