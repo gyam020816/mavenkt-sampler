@@ -240,12 +240,12 @@ internal class GildedRoseTest {
         ))
     }
 
-    companion object {
-        @JvmStatic
-        fun fds() = listOf(
-                1 to 2
-        )
-    }
+//    companion object {
+//        @JvmStatic
+//        fun fds() = listOf(
+//                1 to 2
+//        )
+//    }
 
 //    @ParameterizedTest
 //    @MethodSource("fds")
